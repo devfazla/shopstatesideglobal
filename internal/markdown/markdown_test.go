@@ -1,94 +1,48 @@
 package markdown
 
-import "testing"
+import (
+	"encoding/json"
+	"os"
+	"path/filepath"
+	"strings"
+	"testing"
+)
 
-func TestCleanHTML(t *testing.T) {
-	tests := []struct {
-		name string
-		in   string
-		want string
-	}{
-		{
-			name: "empty",
-			in:   "   ",
-			want: "",
-		},
-		{
-			name: "paragraph with bold",
-			in:   "<p>Hello <b>world</b></p>",
-			want: "Hello **world**",
-		},
-		{
-			name: "heading",
-			in:   "<h1>Title</h1>",
-			want: "# Title",
-		},
-		{
-			name: "link",
-			in:   `<a href="https://example.com">Example</a>`,
-			want: "[Example](https://example.com)",
-		},
-		{
-			name: "bare link collapses",
-			in:   `<a href="https://example.com">https://example.com</a>`,
-			want: "https://example.com",
-		},
-		{
-			name: "unordered list",
-			in:   "<ul><li>a</li><li>b</li></ul>",
-			want: "- a\n- b",
-		},
-		{
-			name: "ordered list",
-			in:   "<ol><li>first</li><li>second</li></ol>",
-			want: "1. first\n2. second",
-		},
-		{
-			name: "italic and code",
-			in:   "<em>hi</em> and <code>x=1</code>",
-			want: "_hi_ and `x=1`",
-		},
-		{
-			name: "entity decoding",
-			in:   "<p>Tom &amp; Jerry &lt;3</p>",
-			want: "Tom & Jerry <3",
-		},
-		{
-			name: "script removed",
-			in:   "<script>alert(1)</script><p>ok</p>",
-			want: "ok",
-		},
-		{
-			name: "image",
-			in:   `<img src="/a.png" alt="logo">`,
-			want: "![logo](/a.png)",
-		},
-		{
-			name: "block quote",
-			in:   "<blockquote>quoted</blockquote>",
-			want: "> quoted",
-		},
-		{
-			name: "line break",
-			in:   "one<br>two",
-			want: "one\ntwo",
-		},
+// caseVector mirrors one entry of the shared testdata/clean-html-cases.json,
+// which is the single source of truth across the Go, JavaScript, and Python
+// ports of the clean-html function.
+type caseVector struct {
+	Name string `json:"name"`
+	In   string `json:"in"`
+	Want string `json:"want"`
+}
+
+func loadSharedCases(t *testing.T) []caseVector {
+	t.Helper()
+	path := filepath.FromSlash("../../testdata/clean-html-cases.json")
+	data, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatalf("reading shared vectors: %v", err)
 	}
+	var doc struct {
+		Cases []caseVector `json:"cases"`
+	}
+	if err := json.Unmarshal(data, &doc); err != nil {
+		t.Fatalf("parsing shared vectors: %v", err)
+	}
+	if len(doc.Cases) == 0 {
+		t.Fatal("no shared vectors found")
+	}
+	return doc.Cases
+}
 
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got := CleanHTML(tt.in)
-			// CleanHTML returns a trailing newline; compare trimmed output.
-			if trimLast(got) != tt.want {
-				t.Errorf("CleanHTML(%q)\n got: %q\nwant: %q", tt.in, got, tt.want+"\n")
+func TestCleanHTMLSharedVectors(t *testing.T) {
+	for _, c := range loadSharedCases(t) {
+		t.Run(c.Name, func(t *testing.T) {
+			got := strings.TrimSuffix(CleanHTML(c.In), "\n")
+			if got != c.Want {
+				t.Errorf("CleanHTML(%q)\n got: %q\nwant: %q", c.In, got, c.Want)
 			}
 		})
 	}
-}
-
-func trimLast(s string) string {
-	for len(s) > 0 && s[len(s)-1] == '\n' {
-		s = s[:len(s)-1]
-	}
-	return s
 }

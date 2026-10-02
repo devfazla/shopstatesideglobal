@@ -16,6 +16,15 @@ temp/
 # Node (if tooling is ever added)
 node_modules/
 
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+build/
+.venv/
+venv/
+
 # Environment / secrets
 .env
 .env.*
