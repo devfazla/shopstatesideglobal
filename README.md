@@ -1,8 +1,8 @@
 # Stateside Global (ShopStatesideGlobal)
 
-Documentation, official reference links, and Go tooling for **Stateside Global**, a membership-based commerce platform for verified global goods.
+Documentation and official reference links for **Stateside Global**, a membership-based commerce platform for verified global goods.
 
-The `docs/` directory holds the reference documentation. Go code lives under `cmd/` and `internal/` and will grow into the main application.
+This repository contains documentation files only. It has no application code.
 
 ## Official Links
 
@@ -33,71 +33,8 @@ See [docs/links.md](docs/links.md) for the full list.
 | [docs/contact.md](docs/contact.md) | How to get in touch |
 | [structure.md](structure.md) | Repo layout and file descriptions |
 
-## Development
-
-The `clean-html` function is available in **three languages**, each with the same behaviour. All three are validated against one shared fixture: [`testdata/clean-html-cases.json`](testdata/clean-html-cases.json).
-
-### Go
-
-Requires [Go](https://go.dev/dl/) 1.23+. Standard library only.
-
-```bash
-go build -o shopstatesideglobal ./cmd/shopstatesideglobal
-go test ./...
-./shopstatesideglobal --clean-html "<h1>Title</h1><p>Hello <b>world</b></p>"
-```
-
-Function: `markdown.CleanHTML(html string) string` in [`internal/markdown`](internal/markdown/markdown.go).
-
-### JavaScript / npm
-
-Package: [`@statesideglobal/clean-html`](js/) (source in [`js/`](js/)).
-
-```bash
-cd js && npm install && npm test
-node index.js --clean-html "<p>Hello <b>world</b></p>"
-```
-
-Function: `cleanHTML(html)` exported from [`js/index.js`](js/index.js).
-
-### Python
-
-Package: `cleanhtml-statesideglobal` (source in [`python/`](python/)).
-
-```bash
-cd python && pip install .
-python tests/test_clean_html.py
-python -m cleanhtml --clean-html "<p>Hello <b>world</b></p>"
-```
-
-Function: `clean_html(html)` from the `cleanhtml` package.
-
-## CI & Release
-
-GitHub Actions live in [`.github/workflows/`](.github/workflows/).
-
-- **`ci.yml`** — on every push to `main` and every pull request, runs `go vet` + `go test ./...`, the JS `npm test`, and the Python test suite. All three validate against [`testdata/clean-html-cases.json`](testdata/clean-html-cases.json).
-- **`release.yml`** — on a version tag (e.g. `git tag v0.1.0 && git push origin v0.1.0`), it cross-compiles the Go CLI for linux/darwin/windows, attaches the binaries to a GitHub Release, and publishes the npm and PyPI packages.
-
-### Required repository secrets
-
-Configure these under **Settings → Secrets and variables → Actions** before the release jobs can publish:
-
-| Secret | Used by | Purpose |
-|--------|---------|---------|
-| `NPM_TOKEN` | `publish-npm` | npm access token for `@statesideglobal/clean-html` |
-| `PYPI_API_TOKEN` | `publish-pypi` | PyPI API token for `cleanhtml-statesideglobal` |
-
-To cut a release:
-
-```bash
-git tag v0.1.0
-git push origin v0.1.0
-```
-
 ## Maintaining This Repo
 
-- **Cross-language parity:** when you change the cleaner, update all three ports and add the case to `testdata/clean-html-cases.json` first, then run each language's tests.
-- Use full `https://` URLs for all links in the docs.
+- Keep every file as Markdown (`.md`).
+- Use full `https://` URLs for all links.
 - When a link or handle changes, update `README.md` and `docs/links.md` together.
-- Follow standard Go layout (`cmd/` for binaries, `internal/` for packages).

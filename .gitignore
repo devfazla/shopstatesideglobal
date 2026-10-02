@@ -13,26 +13,6 @@ desktop.ini
 tmp/
 temp/
 
-# Node (if tooling is ever added)
-node_modules/
-
-# Python
-__pycache__/
-*.py[cod]
-*.egg-info/
-.pytest_cache/
-build/
-.venv/
-venv/
-
 # Environment / secrets
 .env
 .env.*
-
-# Go build artifacts
-/shopstatesideglobal
-/shopstatesideglobal.exe
-/bin/
-/dist/
-*.test
-coverage.out
