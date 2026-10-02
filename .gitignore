@@ -19,3 +19,11 @@ node_modules/
 # Environment / secrets
 .env
 .env.*
+
+# Go build artifacts
+/shopstatesideglobal
+/shopstatesideglobal.exe
+/bin/
+/dist/
+*.test
+coverage.out

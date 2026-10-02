@@ -1,8 +1,8 @@
 # Stateside Global (ShopStatesideGlobal)
 
-Documentation and official reference links for **Stateside Global**, a membership-based commerce platform for verified global goods.
+Documentation, official reference links, and Go tooling for **Stateside Global**, a membership-based commerce platform for verified global goods.
 
-This repository contains documentation files only. It has no application code.
+The `docs/` directory holds the reference documentation. Go code lives under `cmd/` and `internal/` and will grow into the main application.
 
 ## Official Links
 
@@ -33,8 +33,29 @@ See [docs/links.md](docs/links.md) for the full list.
 | [docs/contact.md](docs/contact.md) | How to get in touch |
 | [structure.md](structure.md) | Repo layout and file descriptions |
 
+## Development
+
+Requires [Go](https://go.dev/dl/) 1.23 or later. The code uses only the standard library (no external modules).
+
+```bash
+# Build the CLI
+go build -o shopstatesideglobal ./cmd/shopstatesideglobal
+
+# Run the tests
+go test ./...
+
+# Convert an HTML string to clean Markdown
+./shopstatesideglobal --clean-html "<h1>Title</h1><p>Hello <b>world</b></p>"
+
+# Or read from a file / stdin
+./shopstatesideglobal --clean-html-file page.html
+cat page.html | ./shopstatesideglobal --clean-html -
+```
+
+The cleaner lives in [`internal/markdown`](internal/markdown/markdown.go) as `markdown.CleanHTML(html string) string`, and the `--clean-html` flag is wired up in [`cmd/shopstatesideglobal`](cmd/shopstatesideglobal/main.go).
+
 ## Maintaining This Repo
 
-- Keep every file as Markdown (`.md`).
-- Use full `https://` URLs for all links.
+- Use full `https://` URLs for all links in the docs.
 - When a link or handle changes, update `README.md` and `docs/links.md` together.
+- Follow standard Go layout (`cmd/` for binaries, `internal/` for packages) and run `go test ./...` before pushing.
