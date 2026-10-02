@@ -9,6 +9,10 @@ shopstatesideglobal/
 ├── LICENSE
 ├── .gitignore
 ├── go.mod
+├── .github/
+│   └── workflows/
+│       ├── ci.yml
+│       └── release.yml
 ├── cmd/
 │   └── shopstatesideglobal/
 │       └── main.go
@@ -44,6 +48,8 @@ shopstatesideglobal/
 | `LICENSE` | MIT license for the repository contents |
 | `.gitignore` | Ignores OS, editor, log, secret, and build files |
 | `go.mod` | Go module definition (`github.com/devfazla/shopstatesideglobal`) |
+| `.github/workflows/ci.yml` | CI: tests Go, JavaScript, and Python on push/PR |
+| `.github/workflows/release.yml` | Release: builds Go binaries and publishes to npm + PyPI on a `v*` tag |
 | `cmd/shopstatesideglobal/main.go` | Go CLI entry point; exposes the `--clean-html` flag |
 | `internal/markdown/markdown.go` | Go `CleanHTML` converts an HTML string into clean Markdown |
 | `internal/markdown/markdown_test.go` | Go test; reads the shared vectors from `testdata/` |

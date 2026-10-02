@@ -72,6 +72,29 @@ python -m cleanhtml --clean-html "<p>Hello <b>world</b></p>"
 
 Function: `clean_html(html)` from the `cleanhtml` package.
 
+## CI & Release
+
+GitHub Actions live in [`.github/workflows/`](.github/workflows/).
+
+- **`ci.yml`** — on every push to `main` and every pull request, runs `go vet` + `go test ./...`, the JS `npm test`, and the Python test suite. All three validate against [`testdata/clean-html-cases.json`](testdata/clean-html-cases.json).
+- **`release.yml`** — on a version tag (e.g. `git tag v0.1.0 && git push origin v0.1.0`), it cross-compiles the Go CLI for linux/darwin/windows, attaches the binaries to a GitHub Release, and publishes the npm and PyPI packages.
+
+### Required repository secrets
+
+Configure these under **Settings → Secrets and variables → Actions** before the release jobs can publish:
+
+| Secret | Used by | Purpose |
+|--------|---------|---------|
+| `NPM_TOKEN` | `publish-npm` | npm access token for `@statesideglobal/clean-html` |
+| `PYPI_API_TOKEN` | `publish-pypi` | PyPI API token for `cleanhtml-statesideglobal` |
+
+To cut a release:
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
 ## Maintaining This Repo
 
 - **Cross-language parity:** when you change the cleaner, update all three ports and add the case to `testdata/clean-html-cases.json` first, then run each language's tests.
