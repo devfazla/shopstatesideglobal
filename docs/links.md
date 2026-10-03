@@ -13,19 +13,19 @@ These sections appear in the site navigation and footer. Add the exact URL besid
 
 | Section | Notes |
 |---------|-------|
-| Home | |
+| Home | https://shopstatesideglobal.com |
 | About | https://www.shopstatesideglobal.com/about |
-| Membership / Plans & Pricing | |
-| This Month's Drop / Monthly Drop | |
-| Fifth & Main | |
-| Join Waitlist | |
-| Member Login / Dashboard | |
-| Blog | |
-| Authenticity | |
-| FAQ | |
-| Contact | |
-| Privacy | |
-| Terms | |
+| Membership / Plans & Pricing | https://shopstatesideglobal.com/membership |
+| This Month's Drop / Monthly Drop | https://shopstatesideglobal.com/drop |
+| Fifth & Main | https://shopstatesideglobal.com/fifth-main |
+| Join Waitlist | https://shopstatesideglobal.com/#waitlist |
+| Member Login / Dashboard | https://shopstatesideglobal.com/login |
+| Blog | https://shopstatesideglobal.com/blog |
+| Authenticity | https://shopstatesideglobal.com/trust |
+| FAQ | https://shopstatesideglobal.com/about#faq |
+| Contact | https://shopstatesideglobal.com/contact |
+| Privacy | https://shopstatesideglobal.com/privacy#privacy |
+| Terms | https://shopstatesideglobal.com/privacy#terms |
 
 ## Social Profiles
 
