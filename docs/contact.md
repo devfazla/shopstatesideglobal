@@ -3,7 +3,7 @@
 ## Support
 
 - Email: support@shopstatesideglobal.com
-- Website contact page: https://shopstatesideglobal.com (see Contact in the site menu)
+- Website contact page: https://shopstatesideglobal.com/contact
 
 ## Official Channels
 
@@ -24,5 +24,7 @@
 The site offers a newsletter with drop alerts and editorial updates, with members first. Subscribe through the form in the site footer.
 
 ## Repo Maintainer
+Fazla Rabbi [devfazla](https://devfazla.com)
 
 - GitHub: https://github.com/devfazla
+- Contact: https://devfazla.com/#contact
