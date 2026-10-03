@@ -4,6 +4,15 @@ Documentation and official reference links for **Stateside Global**, a membershi
 
 This repository contains documentation files only. It has no application code.
 
+## GitHub Topics
+
+Keywords
+
+
+```
+stateside-global membership-platform ecommerce curated-commerce product-verification cross-border-commerce nigeria documentation official-links
+```
+
 ## Official Links
 
 | Platform | Handle | Link |
